@@ -1,0 +1,27 @@
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  image: jiegec/rust:1.89-bookworm-tuna
+  script:
+    - cargo build
+
+test:
+  stage: test
+  image: jiegec/rust:1.89-bookworm-tuna
+  script:
+    - cargo test -- --test-threads=1
+
+fmt:
+  stage: test
+  image: jiegec/rust:1.89-bookworm-tuna
+  script:
+    - cargo fmt --all --check
+
+clippy:
+  stage: test
+  image: jiegec/rust:1.89-bookworm-tuna
+  script:
+    - cargo clippy -- -D warnings
